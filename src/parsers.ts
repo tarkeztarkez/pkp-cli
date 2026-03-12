@@ -406,15 +406,36 @@ function parseConsistSequence(words: TsvWord[]): TrainConsistSequenceItem[] {
       index++;
     }
 
-    output.push({
-      raw,
-      kind: raw.includes("_") || !/\d/.test(raw) ? "marker" : "carriage",
-      carriageNumber: extractCarriageNumber(raw),
-      noteNumber: extractNoteNumber(raw),
-    });
+    for (const token of splitMergedConsistToken(raw, current.width)) {
+      output.push({
+        raw: token,
+        kind: token.includes("_") || !/\d/.test(token) ? "marker" : "carriage",
+        carriageNumber: extractCarriageNumber(token),
+        noteNumber: extractNoteNumber(token),
+      });
+    }
   }
 
   return output;
+}
+
+function splitMergedConsistToken(raw: string, width: number) {
+  if (/^[1-9]{2}$/.test(raw) && width >= 12 && isLikelyMergedSingleDigitPair(raw)) {
+    return raw.split("");
+  }
+
+  return [raw];
+}
+
+function isLikelyMergedSingleDigitPair(raw: string) {
+  const digits = raw.split("").map((digit) => Number.parseInt(digit, 10));
+  const left = digits[0];
+  const right = digits[1];
+  if (left === undefined || right === undefined) {
+    return false;
+  }
+
+  return Number.isFinite(left) && Number.isFinite(right) && Math.abs(left - right) === 1 && left >= 1 && right >= 1;
 }
 
 function extractCarriageNumber(value: string) {
