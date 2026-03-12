@@ -1,0 +1,11 @@
+.git
+.gitignore
+node_modules
+dist
+out
+coverage
+.cache
+.idea
+.DS_Store
+CLAUDE.md
+skills

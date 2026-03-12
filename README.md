@@ -40,4 +40,25 @@ Available endpoints:
 
 The server enables permissive CORS and exposes an OpenAPI 3.1 document at `/openapi.json`.
 
+## Docker
+
+Build the image:
+
+```bash
+docker build -t pkp-cli .
+```
+
+Run the REST server:
+
+```bash
+docker run --rm -p 3000:3000 pkp-cli
+```
+
+Then use:
+
+- `http://127.0.0.1:3000/`
+- `http://127.0.0.1:3000/openapi.json`
+
+The container starts `pkp server serve --host 0.0.0.0 --port 3000` by default.
+
 This project was created using `bun init` in bun v1.3.9. [Bun](https://bun.com) is a fast all-in-one JavaScript runtime.
