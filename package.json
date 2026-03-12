@@ -1,0 +1,24 @@
+{
+  "name": "pkp-cli",
+  "module": "index.ts",
+  "bin": {
+    "pkp": "./index.ts"
+  },
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "bun run ./index.ts",
+    "routes": "bun run ./index.ts routes",
+    "stations": "bun run ./index.ts stations",
+    "serve": "bun run ./index.ts server serve"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "cheerio": "^1.2.0"
+  }
+}

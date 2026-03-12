@@ -1,0 +1,43 @@
+# pkp cli
+
+CLI for `portalpasazera.pl`, built with Bun and TypeScript.
+
+Examples:
+
+```bash
+bun run index.ts stations "Warszawa"
+bun run index.ts stations "Warszawa" --json
+bun run index.ts routes --from "Warszawa Centralna" --to "Kraków Główny"
+bun run index.ts routes --from "Warszawa Centralna" --to "Kraków Główny" --json
+bun run index.ts departures "Warszawa Centralna"
+bun run index.ts arrivals "Warszawa Centralna"
+bun run index.ts delays --from "Warszawa Centralna" --to "Kraków Główny"
+bun run index.ts disruptions --station "Warszawa Centralna"
+bun run index.ts server serve --port 3000
+```
+
+All commands support `--json` for machine-readable output. Without it, the CLI prints a human-readable summary.
+
+## REST API
+
+Start the local server:
+
+```bash
+pkp server serve --host 127.0.0.1 --port 3000
+```
+
+Available endpoints:
+
+- `GET /stations?query=Warszawa`
+- `GET /train-numbers?query=IC`
+- `GET /routes?from=Warszawa%20Centralna&to=Krak%C3%B3w%20G%C5%82%C3%B3wny`
+- `GET /departures?station=Warszawa%20Centralna`
+- `GET /arrivals?station=Warszawa%20Centralna`
+- `GET /delays?station=Warszawa%20Centralna`
+- `GET /delays?from=Warszawa%20Centralna&to=Krak%C3%B3w%20G%C5%82%C3%B3wny`
+- `GET /disruptions?station=Warszawa%20Centralna`
+- `GET /openapi.json`
+
+The server enables permissive CORS and exposes an OpenAPI 3.1 document at `/openapi.json`.
+
+This project was created using `bun init` in bun v1.3.9. [Bun](https://bun.com) is a fast all-in-one JavaScript runtime.
